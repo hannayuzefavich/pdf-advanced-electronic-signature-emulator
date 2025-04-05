@@ -41,18 +41,23 @@ class KeyGenerator(ttk.Frame):
         for i in range(5):
             self.grid_rowconfigure(i, weight=1)
 
+        # add path label
         label = tk.Label(self.setup_window, text="location where public key will be stored: ")
         label.grid(row=0, column=1)
 
+        # add path input field
         path = tk.Entry(self.setup_window)
         path.grid(row=1, column=1)
 
+        # add pin label
         label = tk.Label(self.setup_window, text="input your pin: ")
         label.grid(row=2, column=1)
 
+        # add pin input field
         code = tk.Entry(self.setup_window, show="•")
         code.grid(row=3, column=1)
 
+        # add button that generate rsa keys
         btn = tk.Button(self.setup_window, text='Generate', command=self.generate, relief='raised')
         btn.grid(row=4, column=1, sticky=tk.NSEW)
 
