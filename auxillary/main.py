@@ -38,6 +38,28 @@ class KeyGenerator(ttk.Frame):
         self.setup_window.title('Setup')
         self.setup_window.geometry('400x300')
 
+        for i in range(5):
+            self.grid_rowconfigure(i, weight=1)
+
+        label = tk.Label(self.setup_window, text="location where public key will be stored: ")
+        label.grid(row=0, column=1)
+
+        path = tk.Entry(self.setup_window)
+        path.grid(row=1, column=1)
+
+        label = tk.Label(self.setup_window, text="input your pin: ")
+        label.grid(row=2, column=1)
+
+        code = tk.Entry(self.setup_window)
+        code.grid(row=3, column=1)
+
+        btn = tk.Button(self.setup_window, text='Generate', command=self.generate, relief='raised')
+        btn.grid(row=4, column=1, sticky=tk.NSEW)
+
+    def generate(self):
+        #rsa.newkeys(4096)
+        pass
+
 
 class App(tk.Tk):
     def __init__(self):
@@ -46,6 +68,7 @@ class App(tk.Tk):
         self.title('Key generator')
         self.geometry('400x300')
         self.resizable(False, False)
+
 
 
 if __name__ == "__main__":
