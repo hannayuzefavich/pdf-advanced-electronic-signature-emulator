@@ -8,11 +8,24 @@ class KeyGenerator(ttk.Frame):
     def __init__(self, container):
         super().__init__(container)
 
-        self.generate_button = tk.Button(self, text='Generate key pair', command=self.begin_setup, width=30, relief='raised', height=10)
-        #nie moge wycentrowac tego przycisku xd
-        self.generate_button.grid(column=3, row=3, columnspan=3, sticky=tk.NSEW)
+        self.grid(row=0, column=0, sticky=tk.NSEW)
 
-        self.grid(padx=10, pady=10, sticky=tk.NSEW)
+        # grid configuration for centering button
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(2, weight=1)
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(2, weight=1)
+
+        self.generate_button = tk.Button(self, text='Generate key pair', command=self.begin_setup, relief='raised')
+        self.generate_button.grid(column=1, row=1, sticky=tk.NSEW, padx=10, pady=10)
+
+
     #tutaj chce zrobic takiego wizarda w osobnym oknie, z krokami:
     # 1.podanie sciezki do zapisania na dysku klucza publicznego
     # 2.podanie pina do zaszyfrowania klucza prywatnego
