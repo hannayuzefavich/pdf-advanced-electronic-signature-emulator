@@ -50,7 +50,7 @@ class KeyGenerator(ttk.Frame):
         label = tk.Label(self.setup_window, text="input your pin: ")
         label.grid(row=2, column=1)
 
-        code = tk.Entry(self.setup_window)
+        code = tk.Entry(self.setup_window, show="•")
         code.grid(row=3, column=1)
 
         btn = tk.Button(self.setup_window, text='Generate', command=self.generate, relief='raised')
