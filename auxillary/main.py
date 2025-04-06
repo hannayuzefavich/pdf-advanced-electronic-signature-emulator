@@ -1,14 +1,18 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter.messagebox import showerror
 from tkinter import filedialog
 import rsa
+import os
 
 
 class KeyGenerator(ttk.Frame):
     def __init__(self, container):
         super().__init__(container)
 
+        self.code = None
+        self.setup_window = None
+        self.path = None
         self.grid(row=0, column=0, sticky=tk.NSEW)
 
         # grid configuration for centering button
@@ -27,13 +31,6 @@ class KeyGenerator(ttk.Frame):
         self.generate_button.grid(column=1, row=1, sticky=tk.NSEW, padx=10, pady=10)
 
 
-    #tutaj chce zrobic takiego wizarda w osobnym oknie, z krokami:
-    # 1.podanie sciezki do zapisania na dysku klucza publicznego
-    # 2.podanie pina do zaszyfrowania klucza prywatnego
-    # 3.po zweryfikowaniu, czy pola zostały wypełnione, wywołac funkcję generate() -> rsa.newkeys(4096), zapisanie klucza publicznego
-    # na dysku, zaszyfrowanie prywatnego
-    # 4. zamknięcie okna dodatkowego - "wizarda"
-    # 5. messagebox że klucze wygenerowane
     def begin_setup(self):
         self.setup_window = tk.Toplevel(self)
         self.setup_window.title('Setup')
@@ -51,7 +48,7 @@ class KeyGenerator(ttk.Frame):
         # add path input field
         self.path = tk.Entry(self.setup_window, state="readonly")
         self.path.grid(row=1, column=0)
-        browse_button = tk.Button(self.setup_window, text="Przeglądaj", command=self.browse_file)
+        browse_button = tk.Button(self.setup_window, text="Browse", command=self.browse_file)
         browse_button.grid(row=1, column=1)
 
         # add pin label
@@ -59,23 +56,40 @@ class KeyGenerator(ttk.Frame):
         label.grid(row=2, column=0)
 
         # add pin input field
-        code = tk.Entry(self.setup_window, show="•")
-        code.grid(row=3, column=0)
+        self.code = tk.Entry(self.setup_window, show="•")
+        self.code.grid(row=3, column=0)
 
         # add button that generate rsa keys
         btn = tk.Button(self.setup_window, text='Generate', command=self.generate, relief='raised')
         btn.grid(row=4, column=0, sticky=tk.NSEW)
 
     def generate(self):
-        #rsa.newkeys(4096)
+        if not self.path.get():
+            messagebox.showinfo("Missing Path", "Empty path")
+            return
+        if not self.code.get():
+            messagebox.showinfo("Missing Pin", "Empty pin")
+            return
+        private_key, public_key = rsa.newkeys(4096)
+        public_key_path = os.path.join(self.path.get(), "public.pem")
+        with open(public_key_path, "wb") as pub_file:
+            pub_file.write(public_key.save_pkcs1("PEM"))
+
+        private_key_encrypted = self.encrypt_private_key()
+
+        private_key_path = os.path.join(self.path.get(), "private.pem")
+        with open(private_key_path, "wb") as priv_file:
+            priv_file.write(private_key.save_pkcs1("PEM"))
+
+
+    def encrypt_private_key(self):
         pass
 
     def browse_file(self):
-        file_path = filedialog.asksaveasfilename(
-            title="Zapisz plik",
+        file_path = filedialog.askdirectory(
+            title="Save file",
         )
 
-        #insert selected path into input field
         if file_path:
             self.path.config(state="normal")
             self.path.delete(0, tk.END)
