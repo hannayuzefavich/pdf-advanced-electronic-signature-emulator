@@ -15,13 +15,18 @@ class PADES(ttk.Frame):
         container.grid_columnconfigure(0, weight=1)
 
         self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
 
         # add path input field
         self.path = tk.Entry(self, state="readonly")
-        self.path.grid(row=1, column=0)
-        browse_button = tk.Button(self, text="Przeglądaj", command=self.browse_file)
-        browse_button.grid(row=1, column=1)
+        self.path.grid(row=0, column=0)
+        browse_button = tk.Button(self, text="Browse", command=self.browse_file)
+        browse_button.grid(row=0, column=1)
+
+        sign_button = tk.Button(self, text="Sign", command=self.sign)
+        sign_button.grid(row=1, column=0)
 
     def browse_file(self):
         file_path = filedialog.askopenfile(
@@ -36,6 +41,9 @@ class PADES(ttk.Frame):
             self.path.insert(0, file_path.name)
             self.path.config(state="readonly")
 
+    #todo: finish function for signing documents
+    def sign(self):
+        pass
 
 class mainApp(tk.Tk):
     def __init__(self):
