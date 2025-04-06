@@ -39,11 +39,14 @@ class PADES(ttk.Frame):
         )
 
         #insert selected path into input field
-        if file_path:
+        if file_path is not None and file_path.name[-4:] == '.pdf':
             self.path.config(state="normal")
             self.path.delete(0, tk.END)
             self.path.insert(0, file_path.name)
             self.path.config(state="readonly")
+        else:
+            #changind file_path to None in case it's different filetype than pdf
+            file_path = None
 
     #todo: finish function for signing documents
     def sign(self):
