@@ -4,6 +4,7 @@ from tkinter.messagebox import showerror
 from tkinter import filedialog
 import rsa
 import os
+from encryption import encryptPrivateKey
 
 
 class KeyGenerator(ttk.Frame):
