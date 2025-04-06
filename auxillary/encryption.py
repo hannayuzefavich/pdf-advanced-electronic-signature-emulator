@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 def generateRSAkeys():
     private_key = rsa.generate_private_key(
         public_exponent=65537,
-        key_size=2048,
+        key_size=4096,
         backend=default_backend()
     )
     public_key = private_key.public_key()
