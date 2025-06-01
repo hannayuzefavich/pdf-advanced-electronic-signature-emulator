@@ -12,6 +12,10 @@ from cryptography.x509.oid import NameOID
 from pyhanko.sign import signers
 from pyhanko.pdf_utils.incremental_writer import IncrementalPdfFileWriter
 
+from pyhanko.keys import load_cert_from_pemder
+from pyhanko_certvalidator import ValidationContext
+from pyhanko.pdf_utils.reader import PdfFileReader
+from pyhanko.sign.validation import validate_pdf_signature
 
 def generate_rsa_keys():
     private_key = rsa.generate_private_key(
@@ -28,6 +32,18 @@ def create_self_signed_cert(private_key, common_name):
         x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"test"),
         x509.NameAttribute(NameOID.COMMON_NAME, common_name),
     ])
+    key_usage = x509.KeyUsage(
+        digital_signature=True,
+        content_commitment=True,
+        key_encipherment=False,
+        data_encipherment=False,
+        key_agreement=False,
+        key_cert_sign=True,
+        crl_sign=True,
+        encipher_only=False,
+        decipher_only=False
+    )
+
     cert = (
         x509.CertificateBuilder()
         .subject_name(subject)
@@ -38,6 +54,9 @@ def create_self_signed_cert(private_key, common_name):
         .not_valid_after(datetime.utcnow() + timedelta(days=365))
         .add_extension(
             x509.BasicConstraints(ca=True, path_length=None), critical=True
+        )
+        .add_extension(
+            key_usage, critical=True
         )
         .sign(private_key, hashes.SHA256(), default_backend())
     )
@@ -114,6 +133,19 @@ def sign_pdf(pdf_path: str, signed_pdf_path: str,
         f.write(out.getvalue())
     print(f"PDF signed and saved to {signed_pdf_path}")
 
+
+
+
+def verify_pdf_signature(pdf_path: str, cert_path: str):
+    root_cert = load_cert_from_pemder(cert_path)
+    vc = ValidationContext(trust_roots=[root_cert])
+
+    with open(pdf_path, 'rb') as doc:
+        r = PdfFileReader(doc)
+        sig = r.embedded_signatures[0]
+        status = validate_pdf_signature(sig, vc)
+        print(status.pretty_print_details())
+
 if __name__ == "__main__":
     password = "1234"
     password_hash = hashlib.sha256(password.encode("utf-8")).digest()
@@ -164,3 +196,5 @@ if __name__ == "__main__":
     print("Saved encrypted key to 'private_key_decrypted.pem'")
 
     sign_pdf('RPI_2023_5_Scrum_Retrospektywa.pdf', 'signed_output.pdf', 'private_key_decrypted.pem', 'cert.pem')
+
+    verify_pdf_signature('signed_output.pdf', 'cert.pem')
