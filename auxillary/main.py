@@ -19,18 +19,17 @@ from auxillary.encryption import save_public_key
 from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys, create_self_signed_cert, \
     save_bytes_to_file
 
-
+##@class KeyGenerator
+    #@brief GUI frame for generating RSA key pairs and saving them securely after encryption
+    #@details Allows users to enter a pin for encryption and select a directory to save public key, encrypted private key and certificate
 class KeyGenerator(ttk.Frame):
-    """
-    @class KeyGenerator
-    @brief GUI frame for generating RSA key pairs and saving them securely after encryption
-    @details Allows users to enter a pin for encryption and select a directory to save public key, encrypted private key and certificate
-    """
+
+    ## @brief Constructor for KeyGenerator
+
+    ## @param container Parent tkinter library container (the root window)
     def __init__(self, container):
-        """
-        @brief Constructor for KeyGenerator
-        @param container Parent tkinter library container (the root window)
-        """
+
+
         super().__init__(container)
 
         self.code = None
@@ -53,13 +52,14 @@ class KeyGenerator(ttk.Frame):
         self.generate_button = tk.Button(self, text='Generate key pair', command=self.begin_setup, relief='raised')
         self.generate_button.grid(column=1, row=1, sticky=tk.NSEW, padx=10, pady=10)
 
+    ## @brief Opens a new setup window for key generation
 
+    ## @details Allows user to input a PIN and choose directory for saving files
+
+    ## :return:
     def begin_setup(self):
-        """
-        @brief Opens a new setup window for key generation
-        @details Allows user to input a PIN and choose directory for saving files
-        :return:
-        """
+
+
         self.setup_window = tk.Toplevel(self)
         self.setup_window.title('Setup')
         self.setup_window.geometry('400x300')
@@ -91,12 +91,14 @@ class KeyGenerator(ttk.Frame):
         btn = tk.Button(self.setup_window, text='Generate', command=self.generate, relief='raised')
         btn.grid(row=4, column=0, sticky=tk.NSEW)
 
+    ## @brief Generates RSA key pair, encrypts the private key and saves all files
+
+    ## @details Stores public key, certificate, encrypted private key
+
+    ## :return:
     def generate(self):
-        """
-        @brief Generates RSA key pair, encrypts the private key and saves all files
-        @details Stores public key, certificate, encrypted private key
-        :return:
-        """
+
+
         if not self.path.get():
             messagebox.showinfo("Missing Path", "Empty path")
             return
@@ -132,14 +134,14 @@ class KeyGenerator(ttk.Frame):
         public_key_path = os.path.join(self.path.get(), "private_decrypted.pem")
         save_bytes_to_file(private_key_decrypted, public_key_path)
 
+    ## @brief Opens a file dialog to select directory
 
+    ## @details Updates the entry field with selected directory path
 
+    ## :return:
     def browse_file(self):
-        """
-        @brief Opens a file dialog to select directory
-        @details Updates the entry field with selected directory path
-        :return:
-        """
+
+
         file_path = filedialog.askdirectory(
             title="Save file",
         )
@@ -150,15 +152,14 @@ class KeyGenerator(ttk.Frame):
             self.path.insert(0, file_path)
             self.path.config(state="readonly")
 
+
+##@class App
+    #@brief Main application window for launching the KeyGenerator GUI
 class App(tk.Tk):
-    """
-    @class App
-    @brief Main application window for launching the KeyGenerator GUI
-    """
+
     def __init__(self):
-        """
-        @brief Initializes the main application window
-        """
+
+        ## @brief Initializes the main application window
         super().__init__()
 
         self.title('Key generator')

@@ -9,15 +9,15 @@ namespace \mbox{\hyperlink{namespaceencryption}{encryption}}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{namespaceencryption_a13dde353c307705821479f7c62143972}{encryption.\+generate\+\_\+rsa\+\_\+keys}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Generate RSA keys\+: private and public. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespaceencryption_a7117ea1906236f64f773acb81417c1ec}{encryption.\+create\+\_\+self\+\_\+signed\+\_\+cert}} (private\+\_\+key, common\+\_\+name)
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a self-\/signed certificate. \end{DoxyCompactList}\item 
 bytes \mbox{\hyperlink{namespaceencryption_a6d65f744f6d1b7036b62e4233cdb98c2}{encryption.\+encrypt\+\_\+private\+\_\+key}} (bytes symmetric\+\_\+key, bytes private\+\_\+key\+\_\+bytes)
-\item 
+\begin{DoxyCompactList}\small\item\em Encrypts private key usng AES algorithm. \end{DoxyCompactList}\item 
 bytes \mbox{\hyperlink{namespaceencryption_adf703b995aa3002aa6f01ab5d376802a}{encryption.\+decrypt\+\_\+private\+\_\+key}} (bytes symmetric\+\_\+key, bytes encrypted\+\_\+data)
-\item 
+\begin{DoxyCompactList}\small\item\em Decrypts data using AES in CBC mode with given symmetric key. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespaceencryption_a47a7cf7c6cef181eb25e99f9e40d2f28}{encryption.\+save\+\_\+bytes\+\_\+to\+\_\+file}} (bytes data, str filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Saves byte data to a file. \end{DoxyCompactList}\item 
 bytes \mbox{\hyperlink{namespaceencryption_ad1942a2b3520d0367e0bc4aa02b900f3}{encryption.\+load\+\_\+bytes\+\_\+from\+\_\+file}} (str filename)
 \item 
 \mbox{\hyperlink{namespaceencryption_a2141558380f289bb192065ddbe53a52f}{encryption.\+save\+\_\+public\+\_\+key}} (public\+\_\+key, str filename)
@@ -25,6 +25,6 @@ bytes \mbox{\hyperlink{namespaceencryption_ad1942a2b3520d0367e0bc4aa02b900f3}{en
 \mbox{\hyperlink{namespaceencryption_a10a771caffefab8a155605db253c8073}{encryption.\+load\+\_\+public\+\_\+key}} (str filename)
 \item 
 \mbox{\hyperlink{namespaceencryption_acc62eee794ed713cfc47ae6819348031}{encryption.\+sign\+\_\+pdf}} (str pdf\+\_\+path, str signed\+\_\+pdf\+\_\+path, str private\+\_\+key\+\_\+path, str cert\+\_\+path)
-\item 
+\begin{DoxyCompactList}\small\item\em Digitally signs a PDF file using RSA private key and X.\+509 certificate. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespaceencryption_a181ec6291f83cd41b024e8ba833804b5}{encryption.\+verify\+\_\+pdf\+\_\+signature}} (str pdf\+\_\+path, str cert\+\_\+path)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Verifies digital PDF signature of a signed PDF file. \end{DoxyCompactList}\end{DoxyCompactItemize}

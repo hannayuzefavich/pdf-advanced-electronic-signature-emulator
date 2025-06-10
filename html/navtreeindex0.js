@@ -76,5 +76,10 @@ var NAVTREEINDEX0 =
 "namespacemembers_func.html":[0,1,1],
 "namespacemembers_vars.html":[0,1,2],
 "namespaces.html":[0,0],
-"pages.html":[]
+"namespacetest.html":[0,0,2],
+"namespacetest.html#a41488c25c6f3a43d77739afed82fce81":[0,0,2,0],
+"namespacetest.html#a4ed5ed92d212cd579c7313a449a7d2a4":[0,0,2,1],
+"namespacetest.html#aaa95896b7fc159de4d22963eb1043bab":[0,0,2,2],
+"pages.html":[],
+"test_8py.html":[2,0,2]
 };

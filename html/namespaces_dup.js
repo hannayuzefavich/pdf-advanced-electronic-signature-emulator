@@ -12,5 +12,10 @@ var namespaces_dup =
       [ "sign_pdf", "namespaceencryption.html#acc62eee794ed713cfc47ae6819348031", null ],
       [ "verify_pdf_signature", "namespaceencryption.html#a181ec6291f83cd41b024e8ba833804b5", null ]
     ] ],
-    [ "main", "namespacemain.html", "namespacemain" ]
+    [ "main", "namespacemain.html", "namespacemain" ],
+    [ "test", "namespacetest.html", [
+      [ "convert_docstring_to_doxygen_comments", "namespacetest.html#a41488c25c6f3a43d77739afed82fce81", null ],
+      [ "process_directory", "namespacetest.html#a4ed5ed92d212cd579c7313a449a7d2a4", null ],
+      [ "process_file", "namespacetest.html#aaa95896b7fc159de4d22963eb1043bab", null ]
+    ] ]
 ];

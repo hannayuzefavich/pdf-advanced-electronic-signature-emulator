@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PDF Advanced Electronic Signature Emulator: encryption Namespace Reference</title>
+<title>My Project: encryption Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,9 +26,8 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">PDF Advanced Electronic Signature Emulator<span id="projectnumber">&#160;1.0</span>
+   <div id="projectname">My Project
    </div>
-   <div id="projectbrief">Set of two python applications to sign pdf documents and verify signatures</div>
   </td>
  </tr>
  </tbody>
@@ -96,15 +95,22 @@ $(function(){initNavTree('namespaceencryption.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a13dde353c307705821479f7c62143972" id="r_a13dde353c307705821479f7c62143972"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13dde353c307705821479f7c62143972">generate_rsa_keys</a> ()</td></tr>
+<tr class="memdesc:a13dde353c307705821479f7c62143972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate RSA keys: private and public.  <br /></td></tr>
 <tr class="memitem:a7117ea1906236f64f773acb81417c1ec" id="r_a7117ea1906236f64f773acb81417c1ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7117ea1906236f64f773acb81417c1ec">create_self_signed_cert</a> (private_key, common_name)</td></tr>
+<tr class="memdesc:a7117ea1906236f64f773acb81417c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a self-signed certificate.  <br /></td></tr>
 <tr class="memitem:a6d65f744f6d1b7036b62e4233cdb98c2" id="r_a6d65f744f6d1b7036b62e4233cdb98c2"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d65f744f6d1b7036b62e4233cdb98c2">encrypt_private_key</a> (bytes symmetric_key, bytes private_key_bytes)</td></tr>
+<tr class="memdesc:a6d65f744f6d1b7036b62e4233cdb98c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypts private key usng AES algorithm.  <br /></td></tr>
 <tr class="memitem:adf703b995aa3002aa6f01ab5d376802a" id="r_adf703b995aa3002aa6f01ab5d376802a"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf703b995aa3002aa6f01ab5d376802a">decrypt_private_key</a> (bytes symmetric_key, bytes encrypted_data)</td></tr>
+<tr class="memdesc:adf703b995aa3002aa6f01ab5d376802a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrypts data using AES in CBC mode with given symmetric key.  <br /></td></tr>
 <tr class="memitem:a47a7cf7c6cef181eb25e99f9e40d2f28" id="r_a47a7cf7c6cef181eb25e99f9e40d2f28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47a7cf7c6cef181eb25e99f9e40d2f28">save_bytes_to_file</a> (bytes data, str filename)</td></tr>
+<tr class="memdesc:a47a7cf7c6cef181eb25e99f9e40d2f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves byte data to a file.  <br /></td></tr>
 <tr class="memitem:ad1942a2b3520d0367e0bc4aa02b900f3" id="r_ad1942a2b3520d0367e0bc4aa02b900f3"><td class="memItemLeft" align="right" valign="top">bytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1942a2b3520d0367e0bc4aa02b900f3">load_bytes_from_file</a> (str filename)</td></tr>
 <tr class="memitem:a2141558380f289bb192065ddbe53a52f" id="r_a2141558380f289bb192065ddbe53a52f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2141558380f289bb192065ddbe53a52f">save_public_key</a> (public_key, str filename)</td></tr>
 <tr class="memitem:a10a771caffefab8a155605db253c8073" id="r_a10a771caffefab8a155605db253c8073"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10a771caffefab8a155605db253c8073">load_public_key</a> (str filename)</td></tr>
 <tr class="memitem:acc62eee794ed713cfc47ae6819348031" id="r_acc62eee794ed713cfc47ae6819348031"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc62eee794ed713cfc47ae6819348031">sign_pdf</a> (str pdf_path, str signed_pdf_path, str private_key_path, str cert_path)</td></tr>
+<tr class="memdesc:acc62eee794ed713cfc47ae6819348031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitally signs a PDF file using RSA private key and X.509 certificate.  <br /></td></tr>
 <tr class="memitem:a181ec6291f83cd41b024e8ba833804b5" id="r_a181ec6291f83cd41b024e8ba833804b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a181ec6291f83cd41b024e8ba833804b5">verify_pdf_signature</a> (str pdf_path, str cert_path)</td></tr>
+<tr class="memdesc:a181ec6291f83cd41b024e8ba833804b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies digital PDF signature of a signed PDF file.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">@file encryption.py
@@ -132,15 +138,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Creates a self-signed certificate
-@details Function generates an X.509 certificate for the given private
-         key with basic constraints ank key usage extensions suitable for
-         digital signing.
-@param private_key RSA private key for signing the certificate
-@param common_name string containing the common name for the certificate subject
-@return X.509 certificate object
-@note organization name is hardcoded to 'test'
-</pre> 
+
+<p>Creates a self-signed certificate. </p>
+<p>Function generates an X.509 certificate for the given private</p>
+<p>key with basic constraints ank key usage extensions suitable for</p>
+<p>digital signing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">private_key</td><td>RSA private key for signing the certificate</td></tr>
+    <tr><td class="paramname">common_name</td><td>string containing the common name for the certificate subject</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>X.509 certificate object</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>organization name is hardcoded to 'test' </dd></dl>
+
 </div>
 </div>
 <a id="adf703b995aa3002aa6f01ab5d376802a" name="adf703b995aa3002aa6f01ab5d376802a"></a>
@@ -161,14 +173,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Decrypts data using AES in CBC mode with given symmetric key
-@details Function decrypts data encrypted by encrypt_private_key()
-         Extracts IV from the first 16 bytes and uses it to decrypt the remaining data.
-@param symmetric_key 32-byte key used for decryption (same as encryption)
-@param encrypted_data encrypted data with IV prepended
-@return decrypted private key data
-@note symmetric_key must be the same key used for encryption
-</pre> 
+
+<p>Decrypts data using AES in CBC mode with given symmetric key. </p>
+<p>Function decrypts data encrypted by <a class="el" href="#a6d65f744f6d1b7036b62e4233cdb98c2" title="Encrypts private key usng AES algorithm.">encrypt_private_key()</a> Extracts IV from the first 16 bytes and uses it to decrypt the remaining data. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">symmetric_key</td><td>32-byte key used for decryption (same as encryption) </td></tr>
+    <tr><td class="paramname">encrypted_data</td><td>encrypted data with IV prepended </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>decrypted private key data </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>symmetric_key must be the same key used for encryption </dd></dl>
+
 </div>
 </div>
 <a id="a6d65f744f6d1b7036b62e4233cdb98c2" name="a6d65f744f6d1b7036b62e4233cdb98c2"></a>
@@ -189,13 +205,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Encrypts private key usng AES algorithm
-@details Function uses AES in CBC mode with PKCS7 padding. A random 16-byte IV
-         is generated and prepended to the encrypted data.
-@param symmetric_key 32-byte key for AES encryption
-@param private_key_bytes Raw bytes of the private key to encrypt
-@return encrypted data with prepended iv
-</pre> 
+
+<p>Encrypts private key usng AES algorithm. </p>
+<p>Function uses AES in CBC mode with PKCS7 padding. A random 16-byte IV is generated and prepended to the encrypted data. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">symmetric_key</td><td>32-byte key for AES encryption </td></tr>
+    <tr><td class="paramname">private_key_bytes</td><td>Raw bytes of the private key to encrypt </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>encrypted data with prepended iv </dd></dl>
+
 </div>
 </div>
 <a id="a13dde353c307705821479f7c62143972" name="a13dde353c307705821479f7c62143972"></a>
@@ -212,11 +232,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Generate RSA keys: private and public
-@details Function creates a private-public key pair using cryptography library.
-@return Tuple containing (private_key, public_key)
-@note Key size is set to 4096 bits for enhanced security and due to project requirements
-</pre> 
+
+<p>Generate RSA keys: private and public. </p>
+<p>Function creates a private-public key pair using cryptography library.</p>
+<dl class="section return"><dt>Returns</dt><dd>Tuple containing (private_key, public_key)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Key size is set to 4096 bits for enhanced security and due to project requirements </dd></dl>
+
 </div>
 </div>
 <a id="ad1942a2b3520d0367e0bc4aa02b900f3" name="ad1942a2b3520d0367e0bc4aa02b900f3"></a>
@@ -254,11 +275,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Loads public key from PEM-formatted file
-@details Reads and deserializes the public key from PEM-formatted file
-@param filename Path to the file to be read
-@return Deserialized public key from file
-</pre> 
+
 </div>
 </div>
 <a id="a47a7cf7c6cef181eb25e99f9e40d2f28" name="a47a7cf7c6cef181eb25e99f9e40d2f28"></a>
@@ -279,12 +296,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Saves byte data to a file
-@details Writes raw byte data to a file with a given name
-@param data Byte data to save
-@param filename File name
-@return None
-</pre> 
+
+<p>Saves byte data to a file. </p>
+<p>Writes raw byte data to a file with a given name </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Byte data to save </td></tr>
+    <tr><td class="paramname">filename</td><td>File name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
 </div>
 </div>
 <a id="a2141558380f289bb192065ddbe53a52f" name="a2141558380f289bb192065ddbe53a52f"></a>
@@ -305,12 +327,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Saves public key to PEM-formatted file
-@details Serializes the public key using PEM format and writes it to file
-@param public_key Public key to be serialized and saved
-@param filename Path to the file to be saved
-@return None
-</pre> 
+
 </div>
 </div>
 <a id="acc62eee794ed713cfc47ae6819348031" name="acc62eee794ed713cfc47ae6819348031"></a>
@@ -341,15 +358,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Digitally signs a PDF file using RSA private key and X.509 certificate
-@details Loads a signer from the given private key and X509 certificate paths,
-         signs the input PDF file and saves the signed version
-@param pdf_path Path to PDF file to be signed
-@param signed_pdf_path Path to save signed PDF file
-@param private_key_path Path to private key file
-@param cert_path Path to certificate file
-@return None
-</pre> 
+
+<p>Digitally signs a PDF file using RSA private key and X.509 certificate. </p>
+<p>Loads a signer from the given private key and X509 certificate paths,</p>
+<p>signs the input PDF file and saves the signed version</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdf_path</td><td>Path to PDF file to be signed</td></tr>
+    <tr><td class="paramname">signed_pdf_path</td><td>Path to save signed PDF file</td></tr>
+    <tr><td class="paramname">private_key_path</td><td>Path to private key file</td></tr>
+    <tr><td class="paramname">cert_path</td><td>Path to certificate file</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
 </div>
 </div>
 <a id="a181ec6291f83cd41b024e8ba833804b5" name="a181ec6291f83cd41b024e8ba833804b5"></a>
@@ -370,12 +393,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@brief Verifies digital PDF signature of a signed PDF file
-@details Uses the given certificate as a trust source to verify the signature
-@param pdf_path Path to PDF file to be verified
-@param cert_path Path to certificate file
-@return None
-</pre> 
+
+<p>Verifies digital PDF signature of a signed PDF file. </p>
+<p>Uses the given certificate as a trust source to verify the signature</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pdf_path</td><td>Path to PDF file to be verified</td></tr>
+    <tr><td class="paramname">cert_path</td><td>Path to certificate file</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

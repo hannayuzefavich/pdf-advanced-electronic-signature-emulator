@@ -14,17 +14,17 @@ import hashlib
 from tkinter.simpledialog import askstring
 from auxillary.encryption import sign_pdf, verify_pdf_signature, decrypt_private_key, load_bytes_from_file, save_bytes_to_file
 
+
+##@class PADES
+    #@brief GUI frame for PDF signing and signature verification.
+    #@details Provides functionality to browse a PDF, sign it using a USB-stored private key, or verify an existing signature.
 class PADES(ttk.Frame):
-    """
-    @class PADES
-    @brief GUI frame for PDF signing and signature verification.
-    @details Provides functionality to browse a PDF, sign it using a USB-stored private key, or verify an existing signature.
-    """
+
+    ## @brief Constructor for PADES GUI frame
+
+    ## @param container Parent tkinter library container (root window)
     def __init__(self, container):
-        """
-        @brief Constructor for PADES GUI frame
-        @param container Parent tkinter library container (root window)
-        """
+
         super().__init__(container)
 
         self.grid(row=0, column=0, sticky=tk.NSEW)
@@ -51,11 +51,10 @@ class PADES(ttk.Frame):
         self.status = tk.Label(self, text="Status: ready", fg="blue")
         self.status.grid(row=2, column=0, columnspan=2, pady=10)
 
+    ## @brief Opens file dialog to select a PDF file.
+
+    ## @details The selected file path is displayed in a read-only text field.
     def browse_file(self):
-        """
-        @brief Opens file dialog to select a PDF file.
-        @details The selected file path is displayed in a read-only text field.
-        """
 
         file_path = filedialog.askopenfile(
             title="wybierz plik",
@@ -72,23 +71,20 @@ class PADES(ttk.Frame):
             messagebox.showerror("Only pdf files are allowed.")
             file_path = None
 
+    ## @brief Attempts to detect a USB drive containing the encrypted private key.
+
+    ## @return Drive path string if found, otherwise None.
     def find_usb_drive(self):
-        """
-        @brief Attempts to detect a USB drive containing the encrypted private key.
-        @return Drive path string if found, otherwise None.
-        """
         for drive in [f"{d}:\\" for d in "DEFGHIJKLMNOPQRSTUVWXYZ"]:
             if os.path.exists(os.path.join(drive, "private.pem")):
                 return drive
         return None
 
 
+    ## @brief Prompts user for PIN and decrypts private key from USB.
+    ## @param usb_drive_path Path to the USB drive.
+    ## @return Tuple of (decrypted_key_bytes, error_message). Error message is None on success.
     def decrypt_private_key_from_usb(self, usb_drive_path):
-        """
-        @brief Prompts user for PIN and decrypts private key from USB.
-        @param usb_drive_path Path to the USB drive.
-        @return Tuple of (decrypted_key_bytes, error_message). Error message is None on success.
-        """
         pin = askstring("PIN", "Enter your PIN:", show="*")
         if not pin:
             return None, "PIN not provided"
@@ -101,20 +97,15 @@ class PADES(ttk.Frame):
             return None, f"Decryption failed: {e}"
 
 
+        ## @brief Hashes PIN with SHA-256.
+        ## @param pin String containing the user PIN.
+        ## @return 32-byte hash digest.
     def hash_pin(self, pin):
-        """
-        @brief Hashes PIN with SHA-256.
-        @param pin String containing the user PIN.
-        @return 32-byte hash digest.
-        """
         return hashlib.sha256((pin.encode("utf-8"))).digest()
 
-
+    ## @brief Signs the selected PDF file.
+    ## @details Loads the private key from USB, decrypts it using user PIN, and signs the document.
     def sign(self):
-        """
-        @brief Signs the selected PDF file.
-        @details Loads the private key from USB, decrypts it using user PIN, and signs the document.
-        """
         file_path = self.path.get()
         if not file_path:
             messagebox.showerror("No file selected")
@@ -144,11 +135,9 @@ class PADES(ttk.Frame):
             return
 
 
+    ## @brief Verifies the signature of the selected PDF.
+    ## @details Uses the user-selected certificate file to verify the digital signature.
     def verify(self):
-        """
-        @brief Verifies the signature of the selected PDF.
-        @details Uses the user-selected certificate file to verify the digital signature.
-        """
         file_path = self.path.get()
         if not file_path:
             messagebox.showerror("Error", "No PDF selected.")
@@ -170,15 +159,13 @@ class PADES(ttk.Frame):
             self.status.config(text="Status: Invalid signature", fg="red")
             messagebox.showerror("Verification failed", str(e))
 
+
+##@class mainApp
+    #@brief Main application window for the PADES GUI.
 class mainApp(tk.Tk):
-    """
-    @class mainApp
-    @brief Main application window for the PADES GUI.
-    """
     def __init__(self):
-        """
-        @brief Initializes the main application window.
-        """
+
+        ## @brief Initializes the main application window.
         super().__init__()
 
         self.title('Key generator')
