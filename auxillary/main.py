@@ -121,18 +121,12 @@ class KeyGenerator(ttk.Frame):
             encryption_algorithm=serialization.NoEncryption(),
         )
 
-        private_key_path = os.path.join(self.path.get(), "private_original.pem")
-        save_bytes_to_file(priv_key_bytes, private_key_path)
 
         private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), priv_key_bytes)
 
         private_key_path = os.path.join(self.path.get(), "private.pem")
         save_bytes_to_file(private_key_encrypted, private_key_path)
 
-        #todo: this is only for testing
-        private_key_decrypted = decrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key_encrypted)
-        public_key_path = os.path.join(self.path.get(), "private_decrypted.pem")
-        save_bytes_to_file(private_key_decrypted, public_key_path)
 
     ## @brief Opens a file dialog to select directory
 
