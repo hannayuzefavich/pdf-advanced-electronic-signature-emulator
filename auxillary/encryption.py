@@ -1,3 +1,12 @@
+"""
+@file encryption.py
+@brief Keys creation and encryption, certificate creation utilities for PDF signing
+@details Helper module providing RSA keys generation, certificate creation and AES key encryption
+@author Hanna Yuzefavich, Szymon Liszewski
+@date june 2025
+@version 1.0
+"""
+#Imports
 import os
 import hashlib
 from datetime import datetime, timedelta
@@ -17,7 +26,16 @@ from pyhanko_certvalidator import ValidationContext
 from pyhanko.pdf_utils.reader import PdfFileReader
 from pyhanko.sign.validation import validate_pdf_signature
 
+
+## @brief Generate RSA keys: private and public
+
+## @details Function creates a private-public key pair using cryptography library.
+
+## @return Tuple containing (private_key, public_key)
+
+## @note Key size is set to 4096 bits for enhanced security and due to project requirements
 def generate_rsa_keys():
+
     private_key = rsa.generate_private_key(
         public_exponent=65537,
         key_size=4096,
@@ -25,8 +43,24 @@ def generate_rsa_keys():
     )
     return private_key, private_key.public_key()
 
+## @brief Creates a self-signed certificate
 
+    ## @details Function generates an X.509 certificate for the given private
+
+    ## key with basic constraints ank key usage extensions suitable for
+
+    ## digital signing.
+
+    ## @param private_key RSA private key for signing the certificate
+
+    ## @param common_name string containing the common name for the certificate subject
+
+    ## @return X.509 certificate object
+
+    ## @note organization name is hardcoded to 'test'
 def create_self_signed_cert(private_key, common_name):
+
+
     subject = issuer = x509.Name([
         x509.NameAttribute(NameOID.COUNTRY_NAME, u"PL"),
         x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"test"),
@@ -63,7 +97,14 @@ def create_self_signed_cert(private_key, common_name):
     return cert
 
 
+##@brief Encrypts private key usng AES algorithm
+#@details Function uses AES in CBC mode with PKCS7 padding. A random 16-byte IV
+         #is generated and prepended to the encrypted data.
+#@param symmetric_key 32-byte key for AES encryption
+#@param private_key_bytes Raw bytes of the private key to encrypt
+#@return encrypted data with prepended iv
 def encrypt_private_key(symmetric_key: bytes, private_key_bytes: bytes) -> bytes:
+
     iv = os.urandom(16)
 
     padder = padding.PKCS7(128).padder()
@@ -75,8 +116,15 @@ def encrypt_private_key(symmetric_key: bytes, private_key_bytes: bytes) -> bytes
     encrypted_data = encryptor.update(padded_data) + encryptor.finalize()
     return iv + encrypted_data
 
-
+##@brief Decrypts data using AES in CBC mode with given symmetric key
+#@details Function decrypts data encrypted by encrypt_private_key()
+#Extracts IV from the first 16 bytes and uses it to decrypt the remaining data.
+#@param symmetric_key 32-byte key used for decryption (same as encryption)
+#@param encrypted_data encrypted data with IV prepended
+#@return decrypted private key data
+#@note symmetric_key must be the same key used for encryption
 def decrypt_private_key(symmetric_key: bytes, encrypted_data: bytes) -> bytes:
+
     iv = encrypted_data[:16]
     encrypted = encrypted_data[16:]
 
@@ -89,18 +137,38 @@ def decrypt_private_key(symmetric_key: bytes, encrypted_data: bytes) -> bytes:
     data = unpadder.update(padded_data) + unpadder.finalize()
     return data
 
-
+##@brief Saves byte data to a file
+#@details Writes raw byte data to a file with a given name
+#@param data Byte data to save
+#@param filename File name
+#@return None
 def save_bytes_to_file(data: bytes, filename: str):
     with open(filename, 'wb') as f:
         f.write(data)
 
 
 def load_bytes_from_file(filename: str) -> bytes:
+    """
+    @brief Loads byte data from a file
+    @details Opens and reads the data from a file into memory as bytes
+    @param filename Path to file to be read
+    @return Byte content of file
+    """
     with open(filename, 'rb') as f:
         return f.read()
 
+ ## @brief Saves public key to PEM-formatted file
 
+    ## @details Serializes the public key using PEM format and writes it to file
+
+    ## @param public_key Public key to be serialized and saved
+
+    ## @param filename Path to the file to be saved
 def save_public_key(public_key, filename: str):
+
+
+
+    ## @return None
     pub_bytes = public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo,
@@ -108,16 +176,40 @@ def save_public_key(public_key, filename: str):
     with open(filename, 'wb') as f:
         f.write(pub_bytes)
 
+ ## @brief Loads public key from PEM-formatted file
 
+    ## @details Reads and deserializes the public key from PEM-formatted file
+
+    ## @param filename Path to the file to be read
+
+    ## @return Deserialized public key from file
 def load_public_key(filename: str):
+
+
     with open(filename, 'rb') as f:
         data = f.read()
     return serialization.load_pem_public_key(data, backend=default_backend())
 
 
+## @brief Digitally signs a PDF file using RSA private key and X.509 certificate
 
+    ## @details Loads a signer from the given private key and X509 certificate paths,
+
+    ## signs the input PDF file and saves the signed version
+
+    ## @param pdf_path Path to PDF file to be signed
+
+    ## @param signed_pdf_path Path to save signed PDF file
+
+    ## @param private_key_path Path to private key file
+
+    ## @param cert_path Path to certificate file
+
+    ## @return None
 def sign_pdf(pdf_path: str, signed_pdf_path: str,
              private_key_path: str, cert_path: str):
+
+
     cms_signer = signers.SimpleSigner.load(
         private_key_path, cert_path,
     )
@@ -133,9 +225,15 @@ def sign_pdf(pdf_path: str, signed_pdf_path: str,
         f.write(out.getvalue())
     print(f"PDF signed and saved to {signed_pdf_path}")
 
+## @brief Verifies digital PDF signature of a signed PDF file
 
+    ## @details Uses the given certificate as a trust source to verify the signature
 
+    ## @param pdf_path Path to PDF file to be verified
 
+    ## @param cert_path Path to certificate file
+
+    ## @return None
 def verify_pdf_signature(pdf_path: str, cert_path: str):
     root_cert = load_cert_from_pemder(cert_path)
     vc = ValidationContext(trust_roots=[root_cert])
@@ -146,55 +244,8 @@ def verify_pdf_signature(pdf_path: str, cert_path: str):
         status = validate_pdf_signature(sig, vc)
         print(status.pretty_print_details())
 
-if __name__ == "__main__":
-    password = "1234"
-    password_hash = hashlib.sha256(password.encode("utf-8")).digest()
+    if status.valid == False:
+        raise Exception("invalid signature")
 
-    # generating keys and certificate
-    priv_key, pub_key = generate_rsa_keys()
-    cert = create_self_signed_cert(priv_key, "test.pl")
-
-    # change PEM to bytes (without encoding, for comparison)
-    priv_key_bytes = priv_key.private_bytes(
-        encoding=serialization.Encoding.PEM,
-        format=serialization.PrivateFormat.PKCS8,
-        encryption_algorithm=serialization.NoEncryption(),
-    )
-
-    # encoding with AES
-    encrypted_priv_key = encrypt_private_key(password_hash, priv_key_bytes)
-
-    # Saving keys to file
-    save_bytes_to_file(encrypted_priv_key, 'private_key_encrypted.bin')
-    save_bytes_to_file(cert.public_bytes(serialization.Encoding.PEM), 'cert.pem')
-    save_bytes_to_file(priv_key_bytes, 'private_key.pem')
-    save_public_key(pub_key, 'public_key.pem')
-
-    print("Saved private and public keys and certificate")
-
-    # read and validation
-    encrypted_priv_key_loaded = load_bytes_from_file('private_key_encrypted.bin')
-    cert_pem_loaded = load_bytes_from_file('cert.pem')
-
-    # key decryption
-    decrypted_priv_key_bytes = decrypt_private_key(password_hash, encrypted_priv_key_loaded)
-
-    # comparing decrypted key with original
-    assert decrypted_priv_key_bytes == priv_key_bytes
-    print("Key was decrypted and verified")
-
-    # loading cert
-    loaded_cert = x509.load_pem_x509_certificate(cert_pem_loaded, default_backend())
-    print(f"Certificate loaded: {loaded_cert.subject.rfc4514_string()}")
-
-    # read public key
-    loaded_pub_key = load_public_key('public_key.pem')
-    print(f"Loaded public key: {type(loaded_pub_key)}")
-
-    # write private key to PEM file
-    save_bytes_to_file(decrypted_priv_key_bytes, 'private_key_decrypted.pem')
-    print("Saved encrypted key to 'private_key_decrypted.pem'")
-
-    sign_pdf('RPI_2023_5_Scrum_Retrospektywa.pdf', 'signed_output.pdf', 'private_key_decrypted.pem', 'cert.pem')
-
-    verify_pdf_signature('signed_output.pdf', 'cert.pem')
+    if status.intact == False:
+        raise Exception("document was modified after signing")

@@ -1,0 +1,156 @@
+\doxysection{main.\+PADES Class Reference}
+\hypertarget{classmain_1_1_p_a_d_e_s}{}\label{classmain_1_1_p_a_d_e_s}\index{main.PADES@{main.PADES}}
+
+
+GUI frame for PDF signing and signature verification.  
+
+
+Inheritance diagram for main.\+PADES\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmain_1_1_p_a_d_e_s}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_a9ed0df800483a3941b403203e6b55fa3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, container)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{classmain_1_1_p_a_d_e_s}{PADES} GUI frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_ab03aa182472b1b1bda05132c22c195b1}{browse\+\_\+file}} (self)
+\begin{DoxyCompactList}\small\item\em Opens file dialog to select a PDF file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_acbacca11225d5b7401afe9f837eb1246}{find\+\_\+usb\+\_\+drive}} (self)
+\begin{DoxyCompactList}\small\item\em Attempts to detect a USB drive containing the encrypted private key. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_a5bd4f8fdae41bab47b8f09ab30125bf5}{decrypt\+\_\+private\+\_\+key\+\_\+from\+\_\+usb}} (self, usb\+\_\+drive\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Prompts user for PIN and decrypts private key from USB. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_aef25b613b34f29cd8d1915d4d6ef5568}{hash\+\_\+pin}} (self, pin)
+\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_ae1b6d8331cba01d7839003ca22c7a290}{sign}} (self)
+\begin{DoxyCompactList}\small\item\em Signs the selected PDF file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_ac2d88ae8c306e52c6649e768ddf1db0b}{verify}} (self)
+\begin{DoxyCompactList}\small\item\em Verifies the signature of the selected PDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_affa0afd15851c0d6ba0cb0b76c7a2abe}{path}} = tk.\+Entry(self, state="{}readonly"{})
+\item 
+\mbox{\hyperlink{classmain_1_1_p_a_d_e_s_abef3ca86a0e96e5824dbe73deb86885a}{status}} = tk.\+Label(self, text="{}Status\+: ready"{}, fg="{}blue"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+GUI frame for PDF signing and signature verification. 
+
+Provides functionality to browse a PDF, sign it using a USB-\/stored private key, or verify an existing signature. 
+
+\label{doc-constructors}
+\Hypertarget{classmain_1_1_p_a_d_e_s_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmain_1_1_p_a_d_e_s_a9ed0df800483a3941b403203e6b55fa3}\index{main.PADES@{main.PADES}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_a9ed0df800483a3941b403203e6b55fa3} 
+main.\+PADES.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{container}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{classmain_1_1_p_a_d_e_s}{PADES} GUI frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em container} & Parent tkinter library container (root window) \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classmain_1_1_p_a_d_e_s_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmain_1_1_p_a_d_e_s_ab03aa182472b1b1bda05132c22c195b1}\index{main.PADES@{main.PADES}!browse\_file@{browse\_file}}
+\index{browse\_file@{browse\_file}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{browse\_file()}{browse\_file()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_ab03aa182472b1b1bda05132c22c195b1} 
+main.\+PADES.\+browse\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Opens file dialog to select a PDF file. 
+
+The selected file path is displayed in a read-\/only text field. \Hypertarget{classmain_1_1_p_a_d_e_s_a5bd4f8fdae41bab47b8f09ab30125bf5}\index{main.PADES@{main.PADES}!decrypt\_private\_key\_from\_usb@{decrypt\_private\_key\_from\_usb}}
+\index{decrypt\_private\_key\_from\_usb@{decrypt\_private\_key\_from\_usb}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{decrypt\_private\_key\_from\_usb()}{decrypt\_private\_key\_from\_usb()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_a5bd4f8fdae41bab47b8f09ab30125bf5} 
+main.\+PADES.\+decrypt\+\_\+private\+\_\+key\+\_\+from\+\_\+usb (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{usb\+\_\+drive\+\_\+path}{}\end{DoxyParamCaption})}
+
+
+
+Prompts user for PIN and decrypts private key from USB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usb\+\_\+drive\+\_\+path} & Path to the USB drive. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tuple of (decrypted\+\_\+key\+\_\+bytes, error\+\_\+message). Error message is None on success. 
+\end{DoxyReturn}
+\Hypertarget{classmain_1_1_p_a_d_e_s_acbacca11225d5b7401afe9f837eb1246}\index{main.PADES@{main.PADES}!find\_usb\_drive@{find\_usb\_drive}}
+\index{find\_usb\_drive@{find\_usb\_drive}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{find\_usb\_drive()}{find\_usb\_drive()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_acbacca11225d5b7401afe9f837eb1246} 
+main.\+PADES.\+find\+\_\+usb\+\_\+drive (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Attempts to detect a USB drive containing the encrypted private key. 
+
+\begin{DoxyReturn}{Returns}
+Drive path string if found, otherwise None. 
+\end{DoxyReturn}
+\Hypertarget{classmain_1_1_p_a_d_e_s_aef25b613b34f29cd8d1915d4d6ef5568}\index{main.PADES@{main.PADES}!hash\_pin@{hash\_pin}}
+\index{hash\_pin@{hash\_pin}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{hash\_pin()}{hash\_pin()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_aef25b613b34f29cd8d1915d4d6ef5568} 
+main.\+PADES.\+hash\+\_\+pin (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pin}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classmain_1_1_p_a_d_e_s_ae1b6d8331cba01d7839003ca22c7a290}\index{main.PADES@{main.PADES}!sign@{sign}}
+\index{sign@{sign}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{sign()}{sign()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_ae1b6d8331cba01d7839003ca22c7a290} 
+main.\+PADES.\+sign (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Signs the selected PDF file. 
+
+Loads the private key from USB, decrypts it using user PIN, and signs the document. \Hypertarget{classmain_1_1_p_a_d_e_s_ac2d88ae8c306e52c6649e768ddf1db0b}\index{main.PADES@{main.PADES}!verify@{verify}}
+\index{verify@{verify}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{verify()}{verify()}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_ac2d88ae8c306e52c6649e768ddf1db0b} 
+main.\+PADES.\+verify (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Verifies the signature of the selected PDF. 
+
+Uses the user-\/selected certificate file to verify the digital signature. 
+
+\label{doc-variable-members}
+\Hypertarget{classmain_1_1_p_a_d_e_s_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classmain_1_1_p_a_d_e_s_affa0afd15851c0d6ba0cb0b76c7a2abe}\index{main.PADES@{main.PADES}!path@{path}}
+\index{path@{path}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_affa0afd15851c0d6ba0cb0b76c7a2abe} 
+main.\+PADES.\+path = tk.\+Entry(self, state="{}readonly"{})}
+
+\Hypertarget{classmain_1_1_p_a_d_e_s_abef3ca86a0e96e5824dbe73deb86885a}\index{main.PADES@{main.PADES}!status@{status}}
+\index{status@{status}!main.PADES@{main.PADES}}
+\doxysubsubsection{\texorpdfstring{status}{status}}
+{\footnotesize\ttfamily \label{classmain_1_1_p_a_d_e_s_abef3ca86a0e96e5824dbe73deb86885a} 
+main.\+PADES.\+status = tk.\+Label(self, text="{}Status\+: ready"{}, fg="{}blue"{})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+main-\/app/\mbox{\hyperlink{main-app_2main_8py}{main.\+py}}\end{DoxyCompactItemize}
