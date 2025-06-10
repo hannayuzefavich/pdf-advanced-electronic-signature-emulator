@@ -244,3 +244,8 @@ def verify_pdf_signature(pdf_path: str, cert_path: str):
         status = validate_pdf_signature(sig, vc)
         print(status.pretty_print_details())
 
+    if status.valid == False:
+        raise Exception("invalid signature")
+
+    if status.intact == False:
+        raise Exception("document was modified after signing")
