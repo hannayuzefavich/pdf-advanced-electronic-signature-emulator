@@ -71,7 +71,7 @@ class PADES(ttk.Frame):
 
 
     def hash_pin(self, pin):
-        return hashlib.sha256((pin.encode("utf-8")).digest())
+        return hashlib.sha256((pin.encode("utf-8"))).digest()
 
     #todo: finish function for signing documents
     def sign(self):
