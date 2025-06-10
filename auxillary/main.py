@@ -2,11 +2,12 @@ import hashlib
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import filedialog
-import rsa
+#import rsa
 import os
 
 from cryptography.hazmat.primitives import serialization
 
+from auxillary.encryption import save_public_key
 from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys, create_self_signed_cert, \
     save_bytes_to_file
 
@@ -75,32 +76,34 @@ class KeyGenerator(ttk.Frame):
         if not self.code.get():
             messagebox.showinfo("Missing Pin", "Empty pin")
             return
-        public_key, private_key = rsa.newkeys(4096)
+        private_key, public_key = generate_rsa_keys()
         public_key_path = os.path.join(self.path.get(), "public.pem")
         cert = create_self_signed_cert(private_key, "test.pl")
         cert_bytes = cert.public_bytes(serialization.Encoding.PEM)
         cert_path = os.path.join(self.path.get(), "cert.pem")
         save_bytes_to_file(cert_bytes, cert_path)
 
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(public_key.save_pkcs1("PEM"))
+        save_public_key(public_key, public_key_path)
 
         # todo: this is only for testing
-        public_key_path = os.path.join(self.path.get(), "private_original.pem")
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(private_key.save_pkcs1("PEM"))
+        priv_key_bytes = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption(),
+        )
 
-        private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key.save_pkcs1())
+        private_key_path = os.path.join(self.path.get(), "private_original.pem")
+        save_bytes_to_file(priv_key_bytes, private_key_path)
+
+        private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), priv_key_bytes)
 
         private_key_path = os.path.join(self.path.get(), "private.pem")
-        with open(private_key_path, "wb") as priv_file:
-            priv_file.write(private_key_encrypted)
+        save_bytes_to_file(private_key_encrypted, private_key_path)
 
         #todo: this is only for testing
         private_key_decrypted = decrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key_encrypted)
         public_key_path = os.path.join(self.path.get(), "private_decrypted.pem")
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(private_key_decrypted)
+        save_bytes_to_file(private_key_decrypted, public_key_path)
 
 
 
