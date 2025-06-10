@@ -136,6 +136,7 @@ def sign_pdf(pdf_path: str, signed_pdf_path: str,
 
 
 
+
 def verify_pdf_signature(pdf_path: str, cert_path: str):
     root_cert = load_cert_from_pemder(cert_path)
     vc = ValidationContext(trust_roots=[root_cert])

@@ -4,7 +4,11 @@ from tkinter import ttk, messagebox
 from tkinter import filedialog
 import rsa
 import os
-from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys
+
+from cryptography.hazmat.primitives import serialization
+
+from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys, create_self_signed_cert, \
+    save_bytes_to_file
 
 
 class KeyGenerator(ttk.Frame):
@@ -72,8 +76,12 @@ class KeyGenerator(ttk.Frame):
             messagebox.showinfo("Missing Pin", "Empty pin")
             return
         public_key, private_key = rsa.newkeys(4096)
-        #private_key, public_key = generateRSAkeys()
         public_key_path = os.path.join(self.path.get(), "public.pem")
+        cert = create_self_signed_cert(private_key, "test.pl")
+        cert_bytes = cert.public_bytes(serialization.Encoding.PEM)
+        cert_path = os.path.join(self.path.get(), "cert.pem")
+        save_bytes_to_file(cert_bytes, cert_path)
+
         with open(public_key_path, "wb") as pub_file:
             pub_file.write(public_key.save_pkcs1("PEM"))
 
