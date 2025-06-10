@@ -1,11 +1,10 @@
 import hashlib
 import tkinter as tk
 from tkinter import ttk, messagebox
-from tkinter.messagebox import showerror
 from tkinter import filedialog
 import rsa
 import os
-from encryption import encryptPrivateKey, decryptPrivateKey, generateRSAkeys
+from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys
 
 
 class KeyGenerator(ttk.Frame):
@@ -83,14 +82,14 @@ class KeyGenerator(ttk.Frame):
         with open(public_key_path, "wb") as pub_file:
             pub_file.write(private_key.save_pkcs1("PEM"))
 
-        private_key_encrypted = encryptPrivateKey(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key.save_pkcs1())
+        private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key.save_pkcs1())
 
         private_key_path = os.path.join(self.path.get(), "private.pem")
         with open(private_key_path, "wb") as priv_file:
             priv_file.write(private_key_encrypted)
 
         #todo: this is only for testing
-        private_key_decrypted = decryptPrivateKey(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key_encrypted)
+        private_key_decrypted = decrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key_encrypted)
         public_key_path = os.path.join(self.path.get(), "private_decrypted.pem")
         with open(public_key_path, "wb") as pub_file:
             pub_file.write(private_key_decrypted)
