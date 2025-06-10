@@ -1,18 +1,36 @@
+"""
+@file auxillary/main.py
+@brief Auxiliary application with keys creation and encryption, certificate generation
+@details Auxiliary application with GUI which generates private and public keys, certificate
+@author Hanna Yuzefavich, Szymon Liszewski
+@date june 2025
+@version 1.0
+"""
+
 import hashlib
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import filedialog
-import rsa
 import os
 
 from cryptography.hazmat.primitives import serialization
 
+from auxillary.encryption import save_public_key
 from encryption import encrypt_private_key, decrypt_private_key, generate_rsa_keys, create_self_signed_cert, \
     save_bytes_to_file
 
 
 class KeyGenerator(ttk.Frame):
+    """
+    @class KeyGenerator
+    @brief GUI frame for generating RSA key pairs and saving them securely after encryption
+    @details Allows users to enter a pin for encryption and select a directory to save public key, encrypted private key and certificate
+    """
     def __init__(self, container):
+        """
+        @brief Constructor for KeyGenerator
+        @param container Parent tkinter library container (the root window)
+        """
         super().__init__(container)
 
         self.code = None
@@ -37,6 +55,11 @@ class KeyGenerator(ttk.Frame):
 
 
     def begin_setup(self):
+        """
+        @brief Opens a new setup window for key generation
+        @details Allows user to input a PIN and choose directory for saving files
+        :return:
+        """
         self.setup_window = tk.Toplevel(self)
         self.setup_window.title('Setup')
         self.setup_window.geometry('400x300')
@@ -69,42 +92,54 @@ class KeyGenerator(ttk.Frame):
         btn.grid(row=4, column=0, sticky=tk.NSEW)
 
     def generate(self):
+        """
+        @brief Generates RSA key pair, encrypts the private key and saves all files
+        @details Stores public key, certificate, encrypted private key
+        :return:
+        """
         if not self.path.get():
             messagebox.showinfo("Missing Path", "Empty path")
             return
         if not self.code.get():
             messagebox.showinfo("Missing Pin", "Empty pin")
             return
-        public_key, private_key = rsa.newkeys(4096)
+        private_key, public_key = generate_rsa_keys()
         public_key_path = os.path.join(self.path.get(), "public.pem")
         cert = create_self_signed_cert(private_key, "test.pl")
         cert_bytes = cert.public_bytes(serialization.Encoding.PEM)
         cert_path = os.path.join(self.path.get(), "cert.pem")
         save_bytes_to_file(cert_bytes, cert_path)
 
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(public_key.save_pkcs1("PEM"))
+        save_public_key(public_key, public_key_path)
 
         # todo: this is only for testing
-        public_key_path = os.path.join(self.path.get(), "private_original.pem")
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(private_key.save_pkcs1("PEM"))
+        priv_key_bytes = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption(),
+        )
 
-        private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key.save_pkcs1())
+        private_key_path = os.path.join(self.path.get(), "private_original.pem")
+        save_bytes_to_file(priv_key_bytes, private_key_path)
+
+        private_key_encrypted = encrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), priv_key_bytes)
 
         private_key_path = os.path.join(self.path.get(), "private.pem")
-        with open(private_key_path, "wb") as priv_file:
-            priv_file.write(private_key_encrypted)
+        save_bytes_to_file(private_key_encrypted, private_key_path)
 
         #todo: this is only for testing
         private_key_decrypted = decrypt_private_key(hashlib.sha256(self.code.get().encode('utf-8')).digest(), private_key_encrypted)
         public_key_path = os.path.join(self.path.get(), "private_decrypted.pem")
-        with open(public_key_path, "wb") as pub_file:
-            pub_file.write(private_key_decrypted)
+        save_bytes_to_file(private_key_decrypted, public_key_path)
 
 
 
     def browse_file(self):
+        """
+        @brief Opens a file dialog to select directory
+        @details Updates the entry field with selected directory path
+        :return:
+        """
         file_path = filedialog.askdirectory(
             title="Save file",
         )
@@ -116,7 +151,14 @@ class KeyGenerator(ttk.Frame):
             self.path.config(state="readonly")
 
 class App(tk.Tk):
+    """
+    @class App
+    @brief Main application window for launching the KeyGenerator GUI
+    """
     def __init__(self):
+        """
+        @brief Initializes the main application window
+        """
         super().__init__()
 
         self.title('Key generator')

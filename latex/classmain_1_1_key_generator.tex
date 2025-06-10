@@ -1,0 +1,120 @@
+\doxysection{main.\+Key\+Generator Class Reference}
+\hypertarget{classmain_1_1_key_generator}{}\label{classmain_1_1_key_generator}\index{main.KeyGenerator@{main.KeyGenerator}}
+Inheritance diagram for main.\+Key\+Generator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmain_1_1_key_generator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_a207dfda7369954db5787406ca2ac667d}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, container)
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_ace80c427abaa3dbad5f1327eb06d24c3}{begin\+\_\+setup}} (self)
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_a73967942a73e7c5237ce9a1348007551}{generate}} (self)
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_aa6299b2be9a6a7f3186f26c8a4fb1852}{browse\+\_\+file}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_a9c14eef6c80d5fe8cea74a779eefe1d9}{code}} = None
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_af9512ed324d3035b48346796a4810d23}{setup\+\_\+window}} = None
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_a7abd0c4e9e56f6b160222f77dd2c58b9}{path}} = None
+\item 
+\mbox{\hyperlink{classmain_1_1_key_generator_a68cdecf1b7db288c9f2d1d5105c47eba}{generate\+\_\+button}} = tk.\+Button(self, text=\textquotesingle{}Generate key pair\textquotesingle{}, command=self.\+begin\+\_\+setup, relief=\textquotesingle{}raised\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@class KeyGenerator
+@brief GUI frame for generating RSA key pairs and saving them securely after encryption
+@details Allows users to enter a pin for encryption and select a directory to save public key, encrypted private key and certificate
+\end{DoxyVerb}
+ 
+
+\label{doc-constructors}
+\Hypertarget{classmain_1_1_key_generator_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmain_1_1_key_generator_a207dfda7369954db5787406ca2ac667d}\index{main.KeyGenerator@{main.KeyGenerator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_a207dfda7369954db5787406ca2ac667d} 
+main.\+Key\+Generator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{container}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Constructor for KeyGenerator
+@param container Parent tkinter library container (the root window)
+\end{DoxyVerb}
+ 
+
+\label{doc-func-members}
+\Hypertarget{classmain_1_1_key_generator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmain_1_1_key_generator_ace80c427abaa3dbad5f1327eb06d24c3}\index{main.KeyGenerator@{main.KeyGenerator}!begin\_setup@{begin\_setup}}
+\index{begin\_setup@{begin\_setup}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{begin\_setup()}{begin\_setup()}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_ace80c427abaa3dbad5f1327eb06d24c3} 
+main.\+Key\+Generator.\+begin\+\_\+setup (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Opens a new setup window for key generation
+@details Allows user to input a PIN and choose directory for saving files
+:return:
+\end{DoxyVerb}
+ \Hypertarget{classmain_1_1_key_generator_aa6299b2be9a6a7f3186f26c8a4fb1852}\index{main.KeyGenerator@{main.KeyGenerator}!browse\_file@{browse\_file}}
+\index{browse\_file@{browse\_file}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{browse\_file()}{browse\_file()}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_aa6299b2be9a6a7f3186f26c8a4fb1852} 
+main.\+Key\+Generator.\+browse\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Opens a file dialog to select directory
+@details Updates the entry field with selected directory path
+:return:
+\end{DoxyVerb}
+ \Hypertarget{classmain_1_1_key_generator_a73967942a73e7c5237ce9a1348007551}\index{main.KeyGenerator@{main.KeyGenerator}!generate@{generate}}
+\index{generate@{generate}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_a73967942a73e7c5237ce9a1348007551} 
+main.\+Key\+Generator.\+generate (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Generates RSA key pair, encrypts the private key and saves all files
+@details Stores public key, certificate, encrypted private key
+:return:
+\end{DoxyVerb}
+ 
+
+\label{doc-variable-members}
+\Hypertarget{classmain_1_1_key_generator_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classmain_1_1_key_generator_a9c14eef6c80d5fe8cea74a779eefe1d9}\index{main.KeyGenerator@{main.KeyGenerator}!code@{code}}
+\index{code@{code}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{code}{code}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_a9c14eef6c80d5fe8cea74a779eefe1d9} 
+main.\+Key\+Generator.\+code = None}
+
+\Hypertarget{classmain_1_1_key_generator_a68cdecf1b7db288c9f2d1d5105c47eba}\index{main.KeyGenerator@{main.KeyGenerator}!generate\_button@{generate\_button}}
+\index{generate\_button@{generate\_button}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{generate\_button}{generate\_button}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_a68cdecf1b7db288c9f2d1d5105c47eba} 
+main.\+Key\+Generator.\+generate\+\_\+button = tk.\+Button(self, text=\textquotesingle{}Generate key pair\textquotesingle{}, command=self.\+begin\+\_\+setup, relief=\textquotesingle{}raised\textquotesingle{})}
+
+\Hypertarget{classmain_1_1_key_generator_a7abd0c4e9e56f6b160222f77dd2c58b9}\index{main.KeyGenerator@{main.KeyGenerator}!path@{path}}
+\index{path@{path}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_a7abd0c4e9e56f6b160222f77dd2c58b9} 
+main.\+Key\+Generator.\+path = None}
+
+\Hypertarget{classmain_1_1_key_generator_af9512ed324d3035b48346796a4810d23}\index{main.KeyGenerator@{main.KeyGenerator}!setup\_window@{setup\_window}}
+\index{setup\_window@{setup\_window}!main.KeyGenerator@{main.KeyGenerator}}
+\doxysubsubsection{\texorpdfstring{setup\_window}{setup\_window}}
+{\footnotesize\ttfamily \label{classmain_1_1_key_generator_af9512ed324d3035b48346796a4810d23} 
+main.\+Key\+Generator.\+setup\+\_\+window = None}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+auxillary/\mbox{\hyperlink{auxillary_2main_8py}{main.\+py}}\end{DoxyCompactItemize}

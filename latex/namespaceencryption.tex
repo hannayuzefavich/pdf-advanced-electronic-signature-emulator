@@ -1,0 +1,167 @@
+\doxysection{encryption Namespace Reference}
+\hypertarget{namespaceencryption}{}\label{namespaceencryption}\index{encryption@{encryption}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceencryption_a13dde353c307705821479f7c62143972}{generate\+\_\+rsa\+\_\+keys}} ()
+\item 
+\mbox{\hyperlink{namespaceencryption_a7117ea1906236f64f773acb81417c1ec}{create\+\_\+self\+\_\+signed\+\_\+cert}} (private\+\_\+key, common\+\_\+name)
+\item 
+bytes \mbox{\hyperlink{namespaceencryption_a6d65f744f6d1b7036b62e4233cdb98c2}{encrypt\+\_\+private\+\_\+key}} (bytes symmetric\+\_\+key, bytes private\+\_\+key\+\_\+bytes)
+\item 
+bytes \mbox{\hyperlink{namespaceencryption_adf703b995aa3002aa6f01ab5d376802a}{decrypt\+\_\+private\+\_\+key}} (bytes symmetric\+\_\+key, bytes encrypted\+\_\+data)
+\item 
+\mbox{\hyperlink{namespaceencryption_a47a7cf7c6cef181eb25e99f9e40d2f28}{save\+\_\+bytes\+\_\+to\+\_\+file}} (bytes data, str filename)
+\item 
+bytes \mbox{\hyperlink{namespaceencryption_ad1942a2b3520d0367e0bc4aa02b900f3}{load\+\_\+bytes\+\_\+from\+\_\+file}} (str filename)
+\item 
+\mbox{\hyperlink{namespaceencryption_a2141558380f289bb192065ddbe53a52f}{save\+\_\+public\+\_\+key}} (public\+\_\+key, str filename)
+\item 
+\mbox{\hyperlink{namespaceencryption_a10a771caffefab8a155605db253c8073}{load\+\_\+public\+\_\+key}} (str filename)
+\item 
+\mbox{\hyperlink{namespaceencryption_acc62eee794ed713cfc47ae6819348031}{sign\+\_\+pdf}} (str pdf\+\_\+path, str signed\+\_\+pdf\+\_\+path, str private\+\_\+key\+\_\+path, str cert\+\_\+path)
+\item 
+\mbox{\hyperlink{namespaceencryption_a181ec6291f83cd41b024e8ba833804b5}{verify\+\_\+pdf\+\_\+signature}} (str pdf\+\_\+path, str cert\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@file encryption.py
+@brief Keys creation and encryption, certificate creation utilities for PDF signing
+@details Helper module providing RSA keys generation, certificate creation and AES key encryption
+@author Hanna Yuzefavich, Szymon Liszewski
+@date june 2025
+@version 1.0
+\end{DoxyVerb}
+ 
+
+\label{doc-func-members}
+\Hypertarget{namespaceencryption_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceencryption_a7117ea1906236f64f773acb81417c1ec}\index{encryption@{encryption}!create\_self\_signed\_cert@{create\_self\_signed\_cert}}
+\index{create\_self\_signed\_cert@{create\_self\_signed\_cert}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{create\_self\_signed\_cert()}{create\_self\_signed\_cert()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a7117ea1906236f64f773acb81417c1ec} 
+encryption.\+create\+\_\+self\+\_\+signed\+\_\+cert (\begin{DoxyParamCaption}\item[{}]{private\+\_\+key}{, }\item[{}]{common\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Creates a self-signed certificate
+@details Function generates an X.509 certificate for the given private
+         key with basic constraints ank key usage extensions suitable for
+         digital signing.
+@param private_key RSA private key for signing the certificate
+@param common_name string containing the common name for the certificate subject
+@return X.509 certificate object
+@note organization name is hardcoded to 'test'
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_adf703b995aa3002aa6f01ab5d376802a}\index{encryption@{encryption}!decrypt\_private\_key@{decrypt\_private\_key}}
+\index{decrypt\_private\_key@{decrypt\_private\_key}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{decrypt\_private\_key()}{decrypt\_private\_key()}}
+{\footnotesize\ttfamily \label{namespaceencryption_adf703b995aa3002aa6f01ab5d376802a} 
+ bytes encryption.\+decrypt\+\_\+private\+\_\+key (\begin{DoxyParamCaption}\item[{bytes}]{symmetric\+\_\+key}{, }\item[{bytes}]{encrypted\+\_\+data}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Decrypts data using AES in CBC mode with given symmetric key
+@details Function decrypts data encrypted by encrypt_private_key()
+         Extracts IV from the first 16 bytes and uses it to decrypt the remaining data.
+@param symmetric_key 32-byte key used for decryption (same as encryption)
+@param encrypted_data encrypted data with IV prepended
+@return decrypted private key data
+@note symmetric_key must be the same key used for encryption
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a6d65f744f6d1b7036b62e4233cdb98c2}\index{encryption@{encryption}!encrypt\_private\_key@{encrypt\_private\_key}}
+\index{encrypt\_private\_key@{encrypt\_private\_key}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{encrypt\_private\_key()}{encrypt\_private\_key()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a6d65f744f6d1b7036b62e4233cdb98c2} 
+ bytes encryption.\+encrypt\+\_\+private\+\_\+key (\begin{DoxyParamCaption}\item[{bytes}]{symmetric\+\_\+key}{, }\item[{bytes}]{private\+\_\+key\+\_\+bytes}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Encrypts private key usng AES algorithm
+@details Function uses AES in CBC mode with PKCS7 padding. A random 16-byte IV
+         is generated and prepended to the encrypted data.
+@param symmetric_key 32-byte key for AES encryption
+@param private_key_bytes Raw bytes of the private key to encrypt
+@return encrypted data with prepended iv
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a13dde353c307705821479f7c62143972}\index{encryption@{encryption}!generate\_rsa\_keys@{generate\_rsa\_keys}}
+\index{generate\_rsa\_keys@{generate\_rsa\_keys}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{generate\_rsa\_keys()}{generate\_rsa\_keys()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a13dde353c307705821479f7c62143972} 
+encryption.\+generate\+\_\+rsa\+\_\+keys (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Generate RSA keys: private and public
+@details Function creates a private-public key pair using cryptography library.
+@return Tuple containing (private_key, public_key)
+@note Key size is set to 4096 bits for enhanced security and due to project requirements
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_ad1942a2b3520d0367e0bc4aa02b900f3}\index{encryption@{encryption}!load\_bytes\_from\_file@{load\_bytes\_from\_file}}
+\index{load\_bytes\_from\_file@{load\_bytes\_from\_file}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{load\_bytes\_from\_file()}{load\_bytes\_from\_file()}}
+{\footnotesize\ttfamily \label{namespaceencryption_ad1942a2b3520d0367e0bc4aa02b900f3} 
+ bytes encryption.\+load\+\_\+bytes\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{str}]{filename}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Loads byte data from a file
+@details Opens and reads the data from a file into memory as bytes
+@param filename Path to file to be read
+@return Byte content of file
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a10a771caffefab8a155605db253c8073}\index{encryption@{encryption}!load\_public\_key@{load\_public\_key}}
+\index{load\_public\_key@{load\_public\_key}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{load\_public\_key()}{load\_public\_key()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a10a771caffefab8a155605db253c8073} 
+encryption.\+load\+\_\+public\+\_\+key (\begin{DoxyParamCaption}\item[{str}]{filename}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Loads public key from PEM-formatted file
+@details Reads and deserializes the public key from PEM-formatted file
+@param filename Path to the file to be read
+@return Deserialized public key from file
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a47a7cf7c6cef181eb25e99f9e40d2f28}\index{encryption@{encryption}!save\_bytes\_to\_file@{save\_bytes\_to\_file}}
+\index{save\_bytes\_to\_file@{save\_bytes\_to\_file}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{save\_bytes\_to\_file()}{save\_bytes\_to\_file()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a47a7cf7c6cef181eb25e99f9e40d2f28} 
+encryption.\+save\+\_\+bytes\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{bytes}]{data}{, }\item[{str}]{filename}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Saves byte data to a file
+@details Writes raw byte data to a file with a given name
+@param data Byte data to save
+@param filename File name
+@return None
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a2141558380f289bb192065ddbe53a52f}\index{encryption@{encryption}!save\_public\_key@{save\_public\_key}}
+\index{save\_public\_key@{save\_public\_key}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{save\_public\_key()}{save\_public\_key()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a2141558380f289bb192065ddbe53a52f} 
+encryption.\+save\+\_\+public\+\_\+key (\begin{DoxyParamCaption}\item[{}]{public\+\_\+key}{, }\item[{str}]{filename}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Saves public key to PEM-formatted file
+@details Serializes the public key using PEM format and writes it to file
+@param public_key Public key to be serialized and saved
+@param filename Path to the file to be saved
+@return None
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_acc62eee794ed713cfc47ae6819348031}\index{encryption@{encryption}!sign\_pdf@{sign\_pdf}}
+\index{sign\_pdf@{sign\_pdf}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{sign\_pdf()}{sign\_pdf()}}
+{\footnotesize\ttfamily \label{namespaceencryption_acc62eee794ed713cfc47ae6819348031} 
+encryption.\+sign\+\_\+pdf (\begin{DoxyParamCaption}\item[{str}]{pdf\+\_\+path}{, }\item[{str}]{signed\+\_\+pdf\+\_\+path}{, }\item[{str}]{private\+\_\+key\+\_\+path}{, }\item[{str}]{cert\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Digitally signs a PDF file using RSA private key and X.509 certificate
+@details Loads a signer from the given private key and X509 certificate paths,
+         signs the input PDF file and saves the signed version
+@param pdf_path Path to PDF file to be signed
+@param signed_pdf_path Path to save signed PDF file
+@param private_key_path Path to private key file
+@param cert_path Path to certificate file
+@return None
+\end{DoxyVerb}
+ \Hypertarget{namespaceencryption_a181ec6291f83cd41b024e8ba833804b5}\index{encryption@{encryption}!verify\_pdf\_signature@{verify\_pdf\_signature}}
+\index{verify\_pdf\_signature@{verify\_pdf\_signature}!encryption@{encryption}}
+\doxysubsubsection{\texorpdfstring{verify\_pdf\_signature()}{verify\_pdf\_signature()}}
+{\footnotesize\ttfamily \label{namespaceencryption_a181ec6291f83cd41b024e8ba833804b5} 
+encryption.\+verify\+\_\+pdf\+\_\+signature (\begin{DoxyParamCaption}\item[{str}]{pdf\+\_\+path}{, }\item[{str}]{cert\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Verifies digital PDF signature of a signed PDF file
+@details Uses the given certificate as a trust source to verify the signature
+@param pdf_path Path to PDF file to be verified
+@param cert_path Path to certificate file
+@return None
+\end{DoxyVerb}
+ 
